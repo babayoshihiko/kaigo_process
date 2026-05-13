@@ -1,0 +1,71 @@
+/*-- scss:defaults --*/
+// メインのアクセントカラーをピンク系に
+$primary: #e60073; 
+$navbar-bg: #f8dfe7;
+$navbar-fg: #333; // ナビゲーションの文字色（濃いグレー）
+
+/*-- scss:rules --*/
+// ボタンの色なども調整したい場合
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+// リンクの色
+a {
+  color: $primary;
+}
+
+
+#menu-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+select {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: white;
+  font-size: 16px;
+  min-width: 150px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+#goBtn {
+  padding: 10px 25px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+#goBtn:hover {
+  background-color: #0056b3;
+}
+
+#goBtn:active {
+  transform: scale(0.95);
+}
+
+#goBtn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

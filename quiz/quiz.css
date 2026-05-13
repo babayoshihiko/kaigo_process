@@ -1,0 +1,78 @@
+#quiz > div {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+button {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 6px auto;
+  padding: 10px 14px;
+
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: #fdf1f5;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.correct {
+  background: #ffe4ec;
+  border-color: #ff8fb1;
+}
+
+button.wrong {
+  background: #f0f0f0;
+}
+
+ruby {
+  ruby-position: over;
+}
+
+rt {
+  font-size: 0.6em;
+  color: #555;
+}
+
+@media print {
+  /* スコアやボタンなどの操作要素を消す */
+  #score, button, .result, .explanation, #popup-container, .no-print {
+    display: none !important;
+  }
+
+  /* リンクの横にURLを表示しないようにする（Quarto/Pandoc対策） */
+  a:after { content: "" !important; }
+
+  /* 文字色を真っ黒にする（インク節約） */
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  /* 設問の塊がページをまたがないようにする */
+  .quiz-item {
+    page-break-inside: avoid;
+  }
+  #quiz {
+      display: block !important;
+    }
+    /* 設問の塊をページをまたいで分割しない */
+    #quiz > div {
+      display: block !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+}
+}

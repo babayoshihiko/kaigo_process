@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: docs
+
+
+resources:
+  - Baba.png
+
+
+website:
+  title: "介護過程"
+  # 大学名などをフッター（ページ最下部）に入れる場合
+  page-footer: 
+    left: "©2026 新潟医療福祉大学 介護福祉学科"
+    right: "AI 准教授 馬場 監修"
+  
+  navbar:
+    background: "#f8dfe7" # ★ここをピンク（Zoom案内と同じ色）に
+    collapse: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: kaigo_process_2.qmd
+        text: 介護課程II
+format:
+  html:
+    theme: 
+      - cosmo
+      - custom.scss
+    css: quiz_multi.css
+    toc: true
+    include-in-header:
+      - text: |
+          <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+          <script src="ruby.js"></script>
+          <script src="quiz_multi.js"></script>
+    include-after-body: header.html
+
