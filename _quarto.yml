@@ -19,9 +19,26 @@ website:
     collapse: true
     left:
       - href: index.qmd
-        text: Home
-      - href: kaigo_process_2.qmd
-        text: 介護課程II
+        text: はじめに
+      - text: "介護課程II"
+        menu:
+          - href: kaigo_process_201_GH.qmd
+            text: "認知症グループホーム"
+          - href: kaigo_process_2.qmd
+            text: "小規模多機能型居宅介護"
+          - href: kaigo_process_2.qmd
+            text: "ICF"
+          - href: kaigo_process_2.qmd
+            text: "日常生活動作 (ADL)"
+          - href: kaigo_process_2.qmd
+            text: "アセスメント"
+          - href: kaigo_process_2.qmd
+            text: "統合化（アセスメント）"
+          - href: kaigo_process_2.qmd
+            text: "生活課題（アセスメント）"
+          - href: kaigo_process_2.qmd
+            text: "地域密着型サービス"
+
 format:
   html:
     theme: 
