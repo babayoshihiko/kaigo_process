@@ -1,5 +1,5 @@
 ---
-title: "介護課程II"
+title: "認知症グループホーム"
 ---
 
 認知症グループホーム（認知症対応型共同生活介護）は、認知症と診断された高齢者が、専門スタッフの支援を受けながら、5〜9人の少人数ユニットで家庭的な雰囲気の中で共同生活を送る介護施設です。食事の準備や掃除をスタッフと共に行い、自立支援と認知症の進行緩和を目指します。
@@ -29,96 +29,8 @@ title: "介護課程II"
   <button id="goBtn">Go</button>
 </div>
 
-<div id="quiz"></div>
-
 グループホームを<ruby>選択<rt>せんたく</rt></ruby>してください。
 
-<script>
+<div id="quiz"></div>
 
-(async () => {
-  // ★最新のGAS URL（/exec）に差し替えてください
-  const gasUrl = "https://script.google.com/macros/s/AKfycbxCZQdHChtUbDvJ1XVJKMkWql1GhNS_QLjLAOY-BRp7oV8aFwSl7i0yzrNbh76tZlSvtw/exec";
-  const ADMIN_SHEET_ID = "1RnQ8aRHT8uLhBY82Veq9WdVl_GOsZRYFXrkEI_11mls";
-
-  const schoolSelect = document.getElementById("schoolSelect");
-  const kakomonSelect = document.getElementById("kakomonSelect");
-  const goBtn = document.getElementById("goBtn");
-
-  let masterData = [];
-
-  // --- 1. Adminシートの読み込み ---
-  try {
-    const response = await fetch(`${gasUrl}?mode=admin&id=${ADMIN_SHEET_ID}`);
-    masterData = await response.json();
-
-    const schoolList = [...new Set(masterData.map(d => (d.School_name || "").toString().trim()))].filter(Boolean);
-    schoolSelect.innerHTML = schoolList.map(s => `<option value="${s}">${s}</option>`).join("");
-
-    const updateKakomonList = () => {
-      const selectedSchool = schoolSelect.value;
-      const filtered = masterData.filter(d => (d.School_name || "").toString().trim() === selectedSchool);
-      kakomonSelect.innerHTML = filtered.map(d => `<option value="${d.Kakomon_ID}">${d.Kakomon_name}</option>`).join("");
-    };
-
-    schoolSelect.addEventListener("change", updateKakomonList);
-    updateKakomonList();
-  } catch (e) {
-    console.error("初期データ取得失敗:", e);
-  }
-
-  // --- 2. Goボタン押下時の処理 ---
-  goBtn.onclick = async () => {
-    const selectedId = kakomonSelect.value;
-    const selectedName = kakomonSelect.options[kakomonSelect.selectedIndex].text;
-
-    // Adminシートから、対象の「過去問シート名」「ルビシート名」「カテゴリ設定シート名」を特定
-    const row = masterData.find(d => 
-      (d.Kakomon_ID || "").toString().trim() === selectedId && 
-      (d.Kakomon_name || "").toString().trim() === selectedName
-    );
-
-    if (!row) return;
-
-    const qSheet = (row.Kakomon_sheet || "").toString().trim();
-    const rSheet = (row.Ruby_sheet || "").toString().trim();
-    const cSheet = (row.Category_sheet || "").toString().trim(); // これが quizConfig 用のシート
-
-    // GASへ、必要な全てのシート情報を投げる
-    const quizUrl = `${gasUrl}?mode=quiz&id=${selectedId}&sheetName=${encodeURIComponent(qSheet)}&rubySheetName=${encodeURIComponent(rSheet)}&configSheetName=${encodeURIComponent(cSheet)}`;
-
-    try {
-      const res = await fetch(quizUrl);
-      const data = await res.json();
-
-      if (data.error) {
-        console.error("GASエラー:", data.error);
-        return;
-      }
-
-      // 【重要】Ruby辞書の適用
-      if (data.ruby && typeof rubyConverter !== "undefined") {
-        rubyConverter.setDictionary(data.ruby);
-      }
-
-      // 【最重要】quizConfig の作成
-      // GAS側で Category_sheet の「category列」と「num列」をオブジェクトにして返している前提
-      window.quizConfig = data.quizConfig || {}; 
-
-      // 確認用（開発者ツールのコンソールで構造が見れます）
-      console.log("Loaded Config:", window.quizConfig);
-
-      // 【重要】クイズデータの格納
-      window.currentQuizData = data.quizData || [];
-
-      // 描画実行
-      if (typeof renderQuiz === "function") {
-        renderQuiz(window.currentQuizData);
-      }
-    } catch (err) {
-      console.error("通信エラー:", err);
-    }
-  };
-})();
-
-</script>
-
+<script src="load_gsheet.js"></script>

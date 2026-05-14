@@ -1,0 +1,30 @@
+---
+title: "ICF"
+format:
+  html:
+    css: styles.css
+---
+
+ICF（International Classification of Functioning, Disability and Health、国際生活機能分類）は、WHO（世界保健機関）が2001年に採択した、健康と生活機能を包括的に評価する国際基準です。従来の障害中心の評価（ICIDH）とは異なり、ICF は個人の「できること」や生活環境との関わりも含めて、多角的に生活機能を捉えることを目的としています。 
+
+ICF は、人の生活機能を以下の 3 つのレベルで評価します： 
+
+- 「心身機能・身体構造」（Body Functions and Structure） 手足の動き、視覚・聴覚、内臓の働きなど、生命維持や身体活動に関わる機能や構造。
+- 「活動」（Activity） 日常生活行為（ADL）、家事、職業活動、趣味やスポーツなど、個人が行う具体的な行動。ICF では「できる活動（能力）」と「実際に行っている活動（実行状況）」の両面で評価します。
+- 「参加」（Participation） 家庭や社会での役割、職場や地域活動への関与、文化・政治・宗教活動への参加など、社会生活全般への関与。
+
+さらに、ICF は「環境因子」や「個人因子」も考慮し、支援やバリアの有無が生活機能に与える影響を評価します。 
+
+
+心身機能・身体構造に支障があるときを「機能障害」と言います。活動に支障があるときは「活動制限」と言います。
+
+
+## 確認テスト
+
+<div id="quiz"></div>
+
+<script>
+  window.schoolName = "介護過程";
+  window.kakomonName = "ICF";
+</script>
+<script src="load_gsheet_direct.js"></script>

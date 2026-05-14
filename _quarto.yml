@@ -11,7 +11,7 @@ website:
   title: "介護過程"
   # 大学名などをフッター（ページ最下部）に入れる場合
   page-footer: 
-    left: "©2026 新潟医療福祉大学 介護福祉学科"
+    left: "©2026 新潟医療福祉大学 社会福祉学科"
     right: "AI 准教授 馬場 監修"
   
   navbar:
@@ -24,20 +24,22 @@ website:
         menu:
           - href: kaigo_process_201_GH.qmd
             text: "認知症グループホーム"
-          - href: kaigo_process_2.qmd
+          - href: kaigo_process_202_SM.qmd
             text: "小規模多機能型居宅介護"
-          - href: kaigo_process_2.qmd
+          - href: kaigo_process_203_ICF.qmd
             text: "ICF"
-          - href: kaigo_process_2.qmd
+          - href: test.qmd
             text: "日常生活動作 (ADL)"
-          - href: kaigo_process_2.qmd
+          - href: test.qmd
             text: "アセスメント"
-          - href: kaigo_process_2.qmd
+          - href: test.qmd
             text: "統合化（アセスメント）"
-          - href: kaigo_process_2.qmd
+          - href: test.qmd
             text: "生活課題（アセスメント）"
-          - href: kaigo_process_2.qmd
+          - href: test.qmd
             text: "地域密着型サービス"
+      - href: test.qmd
+        text: テスト
 
 format:
   html:

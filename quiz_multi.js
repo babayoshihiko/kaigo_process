@@ -142,6 +142,10 @@ function checkAnswerMulti(quizIndex, explanation) {
 ========================= */
 
 function renderQuiz(quizData, containerId = "quiz") {
+  console.log("renderQuiz start");
+  console.log(window.currentQuizData);
+  console.log(window.quizConfig);
+  
   const container = document.getElementById(containerId);
   if (!container) return;
   container.innerHTML = "";
@@ -158,12 +162,21 @@ function renderQuiz(quizData, containerId = "quiz") {
     }, {});
 
     displayData = Object.keys(groups).flatMap(catName => {
-      let group = [...groups[catName]];
-      const configKey = Object.keys(window.quizConfig).find(k => k.trim() === catName);
-      let limit = configKey ? parseInt(window.quizConfig[configKey], 10) : null;
-      if (limit !== null && !isNaN(limit) && limit > 0) {
-        group = shuffle(group).slice(0, limit);
-      }
+    
+      const configKey = Object.keys(window.quizConfig)
+        .find(k => k.trim() === catName);
+    
+      // config に存在しないカテゴリは出題しない
+      if (!configKey) return [];
+    
+      const limit = parseInt(window.quizConfig[configKey], 10);
+    
+      // 0以下や不正値も出題しない
+      if (isNaN(limit) || limit <= 0) return [];
+    
+      const group = shuffle([...groups[catName]])
+        .slice(0, limit);
+    
       return group;
     });
   }
