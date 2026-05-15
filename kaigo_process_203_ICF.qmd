@@ -26,5 +26,6 @@ ICF は、人の生活機能を以下の 3 つのレベルで評価します：
 <script>
   window.schoolName = "介護過程";
   window.kakomonName = "ICF";
+  window.kakomonNChoice = 3;
 </script>
 <script src="load_gsheet_direct.js"></script>

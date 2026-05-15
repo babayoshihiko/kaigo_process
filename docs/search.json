@@ -1,24 +1,10 @@
 [
   {
-    "objectID": "test.html",
-    "href": "test.html",
-    "title": "テスト",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "介護課程",
     "section": "",
-    "text": "読み込み中…  Go"
-  },
-  {
-    "objectID": "kaigo_process_203_ICF.html",
-    "href": "kaigo_process_203_ICF.html",
-    "title": "ICF",
-    "section": "",
-    "text": "ICF（International Classification of Functioning, Disability and Health、国際生活機能分類）は、WHO（世界保健機関）が2001年に採択した、健康と生活機能を包括的に評価する国際基準です。従来の障害中心の評価（ICIDH）とは異なり、ICF は個人の「できること」や生活環境との関わりも含めて、多角的に生活機能を捉えることを目的としています。\nICF は、人の生活機能を以下の 3 つのレベルで評価します：\nさらに、ICF は「環境因子」や「個人因子」も考慮し、支援やバリアの有無が生活機能に与える影響を評価します。\n心身機能・身体構造に支障があるときを「機能障害」と言います。活動に支障があるときは「活動制限」と言います。"
-  },
-  {
-    "objectID": "kaigo_process_203_ICF.html#確認テスト",
-    "href": "kaigo_process_203_ICF.html#確認テスト",
-    "title": "ICF",
-    "section": "確認テスト",
-    "text": "確認テスト"
+    "text": "大学だいがくの介護課程Iかいごかていいちから介護課程Vかいごかていごまでの講義資料こうぎしりょうです。\n他大学ただいがく・専門学校せんもんがっこうの方も、ご自由じゆうにお使つかいください。"
   },
   {
     "objectID": "kaigo_process_201_GH.html",
@@ -42,13 +28,6 @@
     "text": "確認テスト"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "介護課程",
-    "section": "",
-    "text": "大学だいがくの介護課程Iかいごかていいちから介護課程Vかいごかていごまでの講義資料こうぎしりょうです。\n他大学ただいがく・専門学校せんもんがっこうの方も、ご自由じゆうにお使つかいください。"
-  },
-  {
     "objectID": "kaigo_process_202_SM.html",
     "href": "kaigo_process_202_SM.html",
     "title": "小規模多機能型居宅介護",
@@ -63,11 +42,25 @@
     "text": "確認テスト"
   },
   {
+    "objectID": "kaigo_process_203_ICF.html",
+    "href": "kaigo_process_203_ICF.html",
+    "title": "ICF",
+    "section": "",
+    "text": "ICF（International Classification of Functioning, Disability and Health、国際生活機能分類）は、WHO（世界保健機関）が2001年に採択した、健康と生活機能を包括的に評価する国際基準です。従来の障害中心の評価（ICIDH）とは異なり、ICF は個人の「できること」や生活環境との関わりも含めて、多角的に生活機能を捉えることを目的としています。\nICF は、人の生活機能を以下の 3 つのレベルで評価します：\nさらに、ICF は「環境因子」や「個人因子」も考慮し、支援やバリアの有無が生活機能に与える影響を評価します。\n心身機能・身体構造に支障があるときを「機能障害」と言います。活動に支障があるときは「活動制限」と言います。"
+  },
+  {
+    "objectID": "kaigo_process_203_ICF.html#確認テスト",
+    "href": "kaigo_process_203_ICF.html#確認テスト",
+    "title": "ICF",
+    "section": "確認テスト",
+    "text": "確認テスト"
+  },
+  {
     "objectID": "kaigo_process_204_assessment.html",
     "href": "kaigo_process_204_assessment.html",
     "title": "ICF",
     "section": "",
-    "text": "福祉において、アセスメントは介護過程だけではなく様々な場面で行われます。 また、介護福祉や社会福祉だけでなく、高齢医学や海外でも行われています。 介護過程は、「アセスメント」「計画立案」「実施」「評価」の4つの過程からなるサイクルとされえちます。 ビジネスなど、福祉以外の分野ではPDCAサイクルと呼ばれるサイクルとほぼ同じです。\n介護福祉分野における「アセスメント」は、厚生労働省の提唱する「情報収集」「情報の解釈・関連付け・統合化」に分けられます。それぞれを見ていきましょう・"
+    "text": "福祉において、アセスメントは介護過程だけではなく様々な場面で行われます。 また、介護福祉や社会福祉だけでなく、高齢医学や海外でも行われています。 介護過程は、「アセスメント」「計画立案」「実施」「評価」の4つの過程からなるサイクルとされえちます。 ビジネスなど、福祉以外の分野ではPDCAサイクルと呼ばれるサイクルとほぼ同じです。\n介護福祉分野における「アセスメント」は、厚生労働省の提唱する「情報収集」「情報の解釈・関連付け・統合化」に分けられます。テキストによっては、「課題（ニーズ）の明確化」もアセスメントに入ることもあります。それぞれを見ていきましょう・"
   },
   {
     "objectID": "kaigo_process_204_assessment.html#情報収集",
@@ -82,5 +75,40 @@
     "title": "ICF",
     "section": "確認テスト",
     "text": "確認テスト"
+  },
+  {
+    "objectID": "kaigo_process_205_info.html",
+    "href": "kaigo_process_205_info.html",
+    "title": "情報収集",
+    "section": "",
+    "text": "アセスメントの最初に、利用者の情報を収集します。\n利用者とのはじめての面接を「インテーク」(intake) と言います。"
+  },
+  {
+    "objectID": "kaigo_process_205_info.html#課題分析標準項目",
+    "href": "kaigo_process_205_info.html#課題分析標準項目",
+    "title": "情報収集",
+    "section": "課題分析標準項目",
+    "text": "課題分析標準項目\nアセスメントに関しては、基本情報9項目とアセスメント14項目というものがあります。\n基本情報 生活状況 利用者の被保険者情報 現在利用しているサービスの状況 障害老人の日常生活自立度 認知症である老人の日常生活自立度 主訴 認定情報 課題分析（アセスメント）理由\n健康状態 ADL IADL 認知 コミュニケーション能力 社会との関わり 排尿・排便 褥瘡・皮膚の問題 口腔衛生 食事摂取 問題行動 介護力 居住環境 特別な状況"
+  },
+  {
+    "objectID": "kaigo_process_205_info.html#実習時の情報収集",
+    "href": "kaigo_process_205_info.html#実習時の情報収集",
+    "title": "情報収集",
+    "section": "実習時の情報収集",
+    "text": "実習時の情報収集\n介護実習の際の情報収集は、通常の情報収集と少し異なります。\nというのも、おそらく個人ファイルなどを読むことができるのであれば、すでにほとんどの情報は書いてあります。"
+  },
+  {
+    "objectID": "kaigo_process_205_info.html#確認テスト",
+    "href": "kaigo_process_205_info.html#確認テスト",
+    "title": "情報収集",
+    "section": "確認テスト",
+    "text": "確認テスト"
+  },
+  {
+    "objectID": "test.html",
+    "href": "test.html",
+    "title": "テスト",
+    "section": "",
+    "text": "読み込み中…  Go"
   }
 ]

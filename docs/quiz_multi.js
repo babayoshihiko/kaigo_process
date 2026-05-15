@@ -196,9 +196,18 @@ function renderQuiz(quizData, containerId = "quiz") {
     const div = document.createElement("div");
     div.classList.add("quiz-item");
 
+    const nChoice = window.kakomonNChoice || 5;
+    
+    // 誤答をシャッフルして必要数だけ取る
+    const selectedWrongs = shuffle([...q.wrongs])
+      .slice(0, Math.max(0, nChoice - 1));
+    
     const allChoices = [
-      ...q.corrects.map(text => ({ text, isCorrect: true })),
-      ...q.wrongs.map(text => ({ text, isCorrect: false }))
+      { text: q.correct, isCorrect: true },
+      ...selectedWrongs.map(w => ({
+        text: w,
+        isCorrect: false
+      }))
     ];
     const shuffled = shuffle([...allChoices]);
 

@@ -27,5 +27,6 @@ title: "認知症グループホーム"
 <script>
   window.schoolName = "介護過程";
   window.kakomonName = "認知症グループホーム";
+  window.kakomonNChoice = 3;
 </script>
 <script src="load_gsheet_direct.js"></script>

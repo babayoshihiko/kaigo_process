@@ -13,5 +13,6 @@ title: "小規模多機能型居宅介護"
 <script>
   window.schoolName = "介護過程";
   window.kakomonName = "小規模多機能";
+  window.kakomonNChoice = 3;
 </script>
 <script src="load_gsheet_direct.js"></script>

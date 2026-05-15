@@ -30,7 +30,7 @@ website:
             text: "ICF"
           - href: kaigo_process_204_assessment.qmd
             text: "アセスメント"
-          - href: test.qmd
+          - href: kaigo_process_205_info.qmd
             text: "情報収集（アセスメント）"
           - href: test.qmd
             text: "統合化（アセスメント）"
