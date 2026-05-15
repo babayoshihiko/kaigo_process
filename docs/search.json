@@ -7,25 +7,18 @@
     "text": "読み込み中…  Go"
   },
   {
-    "objectID": "kaigo_process_202_SM.html",
-    "href": "kaigo_process_202_SM.html",
-    "title": "小規模多機能型居宅介護",
+    "objectID": "kaigo_process_203_ICF.html",
+    "href": "kaigo_process_203_ICF.html",
+    "title": "ICF",
     "section": "",
-    "text": "「小規模多機能型居宅介護」は、利用者（要介護者）の心身の状況や置かれている環境に応じて、利用者の選択に基づき、居宅に訪問し、または施設に通わせ、もしくは施設に短期間宿泊させ、入浴・排せつ・食事等の介護、調理・洗濯・掃除等の家事等や機能訓練を行うものをいう。\n「通かよい」を中心ちゅうしんとして、要介護者ようかいごしゃの様態ようだいや希望きぼうに応じて、随時「訪問」や「泊まり」を組み合わせてサービスを提供することで、中重度となっても在宅での生活が継続できるよう支援するため、小規模多機能型居宅介護が創設されました（2006年）。"
+    "text": "ICF（International Classification of Functioning, Disability and Health、国際生活機能分類）は、WHO（世界保健機関）が2001年に採択した、健康と生活機能を包括的に評価する国際基準です。従来の障害中心の評価（ICIDH）とは異なり、ICF は個人の「できること」や生活環境との関わりも含めて、多角的に生活機能を捉えることを目的としています。\nICF は、人の生活機能を以下の 3 つのレベルで評価します：\nさらに、ICF は「環境因子」や「個人因子」も考慮し、支援やバリアの有無が生活機能に与える影響を評価します。\n心身機能・身体構造に支障があるときを「機能障害」と言います。活動に支障があるときは「活動制限」と言います。"
   },
   {
-    "objectID": "kaigo_process_202_SM.html#確認テスト",
-    "href": "kaigo_process_202_SM.html#確認テスト",
-    "title": "小規模多機能型居宅介護",
+    "objectID": "kaigo_process_203_ICF.html#確認テスト",
+    "href": "kaigo_process_203_ICF.html#確認テスト",
+    "title": "ICF",
     "section": "確認テスト",
-    "text": "確認テスト\n\n\n読み込み中…  Go\n\n\n\n\n小規模多機能を選択してください。"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "介護課程",
-    "section": "",
-    "text": "大学だいがくの介護課程Iかいごかていいちから介護課程Vかいごかていごまでの講義資料こうぎしりょうです。\n他大学ただいがく・専門学校せんもんがっこうの方も、ご自由じゆうにお使つかいください。"
+    "text": "確認テスト"
   },
   {
     "objectID": "kaigo_process_201_GH.html",
@@ -46,18 +39,46 @@
     "href": "kaigo_process_201_GH.html#確認テスト",
     "title": "認知症グループホーム",
     "section": "確認テスト",
-    "text": "確認テスト\n\n\n読み込み中…  Go\n\nグループホームを選択せんたくしてください。"
+    "text": "確認テスト"
   },
   {
-    "objectID": "kaigo_process_203_ICF.html",
-    "href": "kaigo_process_203_ICF.html",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "介護課程",
+    "section": "",
+    "text": "大学だいがくの介護課程Iかいごかていいちから介護課程Vかいごかていごまでの講義資料こうぎしりょうです。\n他大学ただいがく・専門学校せんもんがっこうの方も、ご自由じゆうにお使つかいください。"
+  },
+  {
+    "objectID": "kaigo_process_202_SM.html",
+    "href": "kaigo_process_202_SM.html",
+    "title": "小規模多機能型居宅介護",
+    "section": "",
+    "text": "「小規模多機能型居宅介護」は、利用者（要介護者）の心身の状況や置かれている環境に応じて、利用者の選択に基づき、居宅に訪問し、または施設に通わせ、もしくは施設に短期間宿泊させ、入浴・排せつ・食事等の介護、調理・洗濯・掃除等の家事等や機能訓練を行うものをいう。\n「通かよい」を中心ちゅうしんとして、要介護者ようかいごしゃの様態ようだいや希望きぼうに応じて、随時「訪問」や「泊まり」を組み合わせてサービスを提供することで、中重度となっても在宅での生活が継続できるよう支援するため、小規模多機能型居宅介護が創設されました（2006年）。"
+  },
+  {
+    "objectID": "kaigo_process_202_SM.html#確認テスト",
+    "href": "kaigo_process_202_SM.html#確認テスト",
+    "title": "小規模多機能型居宅介護",
+    "section": "確認テスト",
+    "text": "確認テスト"
+  },
+  {
+    "objectID": "kaigo_process_204_assessment.html",
+    "href": "kaigo_process_204_assessment.html",
     "title": "ICF",
     "section": "",
-    "text": "ICF（International Classification of Functioning, Disability and Health、国際生活機能分類）は、WHO（世界保健機関）が2001年に採択した、健康と生活機能を包括的に評価する国際基準です。従来の障害中心の評価（ICIDH）とは異なり、ICF は個人の「できること」や生活環境との関わりも含めて、多角的に生活機能を捉えることを目的としています。\nICF は、人の生活機能を以下の 3 つのレベルで評価します：\nさらに、ICF は「環境因子」や「個人因子」も考慮し、支援やバリアの有無が生活機能に与える影響を評価します。\n心身機能・身体構造に支障があるときを「機能障害」と言います。活動に支障があるときは「活動制限」と言います。"
+    "text": "福祉において、アセスメントは介護過程だけではなく様々な場面で行われます。 また、介護福祉や社会福祉だけでなく、高齢医学や海外でも行われています。 介護過程は、「アセスメント」「計画立案」「実施」「評価」の4つの過程からなるサイクルとされえちます。 ビジネスなど、福祉以外の分野ではPDCAサイクルと呼ばれるサイクルとほぼ同じです。\n介護福祉分野における「アセスメント」は、厚生労働省の提唱する「情報収集」「情報の解釈・関連付け・統合化」に分けられます。それぞれを見ていきましょう・"
   },
   {
-    "objectID": "kaigo_process_203_ICF.html#確認テスト",
-    "href": "kaigo_process_203_ICF.html#確認テスト",
+    "objectID": "kaigo_process_204_assessment.html#情報収集",
+    "href": "kaigo_process_204_assessment.html#情報収集",
+    "title": "ICF",
+    "section": "情報収集",
+    "text": "情報収集"
+  },
+  {
+    "objectID": "kaigo_process_204_assessment.html#確認テスト",
+    "href": "kaigo_process_204_assessment.html#確認テスト",
     "title": "ICF",
     "section": "確認テスト",
     "text": "確認テスト"

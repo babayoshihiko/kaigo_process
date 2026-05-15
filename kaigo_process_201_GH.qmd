@@ -22,15 +22,10 @@ title: "認知症グループホーム"
 
 ## 確認テスト
 
-<!-- UIの受け皿 -->
-<div id="menu-container">
-  <select id="schoolSelect"><option>読み込み中...</option></select>
-  <select id="kakomonSelect"></select>
-  <button id="goBtn">Go</button>
-</div>
-
-グループホームを<ruby>選択<rt>せんたく</rt></ruby>してください。
-
 <div id="quiz"></div>
 
-<script src="load_gsheet.js"></script>
+<script>
+  window.schoolName = "介護過程";
+  window.kakomonName = "認知症グループホーム";
+</script>
+<script src="load_gsheet_direct.js"></script>

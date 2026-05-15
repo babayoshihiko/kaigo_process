@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>小規模多機能型居宅介護 – 介護過程</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -35,14 +32,15 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5c125170918a43b7a51eedb3023bbd6a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-50a6e21dba62b45d64fe017650c72b3d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,6 +85,8 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">介護過程</span>
     </a>
@@ -119,12 +119,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">ICF</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./test.html">
- <span class="dropdown-text">日常生活動作 (ADL)</span></a>
+    <a class="dropdown-item" href="./kaigo_process_204_assessment.html">
+ <span class="dropdown-text">アセスメント</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./test.html">
- <span class="dropdown-text">アセスメント</span></a>
+ <span class="dropdown-text">情報収集（アセスメント）</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./test.html">
@@ -190,179 +190,55 @@ ul.task-list li input[type="checkbox"] {
 <p>「<ruby>通<rt>かよ</rt></ruby>い」を<ruby>中心<rt>ちゅうしん</rt></ruby>として、<ruby>要介護者<rt>ようかいごしゃ</rt></ruby>の<ruby>様態<rt>ようだい</rt></ruby>や<ruby>希望<rt>きぼう</rt></ruby>に応じて、随時「訪問」や「泊まり」を組み合わせてサービスを提供することで、中重度となっても在宅での生活が継続できるよう支援するため、小規模多機能型居宅介護が創設されました（2006年）。</p>
 <section id="確認テスト" class="level2">
 <h2 class="anchored" data-anchor-id="確認テスト">確認テスト</h2>
-<!-- UIの受け皿 -->
-<div id="menu-container">
-<p><select id="schoolSelect"><option>読み込み中…</option></select> <select id="kakomonSelect"></select> <button id="goBtn">Go</button></p>
-</div>
 <div id="quiz">
 
 </div>
-<p>小規模多機能を選択してください。</p>
 <script>
-
-(async () => {
-  // ★最新のGAS URL（/exec）に差し替えてください
-  const gasUrl = "https://script.google.com/macros/s/AKfycbxCZQdHChtUbDvJ1XVJKMkWql1GhNS_QLjLAOY-BRp7oV8aFwSl7i0yzrNbh76tZlSvtw/exec";
-  const ADMIN_SHEET_ID = "1RnQ8aRHT8uLhBY82Veq9WdVl_GOsZRYFXrkEI_11mls";
-
-  const schoolSelect = document.getElementById("schoolSelect");
-  const kakomonSelect = document.getElementById("kakomonSelect");
-  const goBtn = document.getElementById("goBtn");
-
-  let masterData = [];
-
-  // --- 1. Adminシートの読み込み ---
-  try {
-    const response = await fetch(`${gasUrl}?mode=admin&id=${ADMIN_SHEET_ID}`);
-    masterData = await response.json();
-
-    const schoolList = [...new Set(masterData.map(d => (d.School_name || "").toString().trim()))].filter(Boolean);
-    schoolSelect.innerHTML = schoolList.map(s => `<option value="${s}">${s}</option>`).join("");
-
-    const updateKakomonList = () => {
-      const selectedSchool = schoolSelect.value;
-      const filtered = masterData.filter(d => (d.School_name || "").toString().trim() === selectedSchool);
-      kakomonSelect.innerHTML = filtered.map(d => `<option value="${d.Kakomon_ID}">${d.Kakomon_name}</option>`).join("");
-    };
-
-    schoolSelect.addEventListener("change", updateKakomonList);
-    updateKakomonList();
-  } catch (e) {
-    console.error("初期データ取得失敗:", e);
-  }
-
-  // --- 2. Goボタン押下時の処理 ---
-  goBtn.onclick = async () => {
-    const selectedId = kakomonSelect.value;
-    const selectedName = kakomonSelect.options[kakomonSelect.selectedIndex].text;
-
-    // Adminシートから、対象の「過去問シート名」「ルビシート名」「カテゴリ設定シート名」を特定
-    const row = masterData.find(d => 
-      (d.Kakomon_ID || "").toString().trim() === selectedId && 
-      (d.Kakomon_name || "").toString().trim() === selectedName
-    );
-
-    if (!row) return;
-
-    const qSheet = (row.Kakomon_sheet || "").toString().trim();
-    const rSheet = (row.Ruby_sheet || "").toString().trim();
-    const cSheet = (row.Category_sheet || "").toString().trim(); // これが quizConfig 用のシート
-
-    // GASへ、必要な全てのシート情報を投げる
-    const quizUrl = `${gasUrl}?mode=quiz&id=${selectedId}&sheetName=${encodeURIComponent(qSheet)}&rubySheetName=${encodeURIComponent(rSheet)}&configSheetName=${encodeURIComponent(cSheet)}`;
-
-    try {
-      const res = await fetch(quizUrl);
-      const data = await res.json();
-
-      if (data.error) {
-        console.error("GASエラー:", data.error);
-        return;
-      }
-
-      // 【重要】Ruby辞書の適用
-      if (data.ruby && typeof rubyConverter !== "undefined") {
-        rubyConverter.setDictionary(data.ruby);
-      }
-
-      // 【最重要】quizConfig の作成
-      // GAS側で Category_sheet の「category列」と「num列」をオブジェクトにして返している前提
-      window.quizConfig = data.quizConfig || {}; 
-
-      // 確認用（開発者ツールのコンソールで構造が見れます）
-      console.log("Loaded Config:", window.quizConfig);
-
-      // 【重要】クイズデータの格納
-      window.currentQuizData = data.quizData || [];
-
-      // 描画実行
-      if (typeof renderQuiz === "function") {
-        renderQuiz(window.currentQuizData);
-      }
-    } catch (err) {
-      console.error("通信エラー:", err);
-    }
-  };
-})();
-
+  window.schoolName = "介護過程";
+  window.kakomonName = "小規模多機能";
 </script>
+<script src="load_gsheet_direct.js"></script>
 
 
 </section>
 
 </main> <!-- /main -->
 <div id="popup-container" class="no-print" style="
-
      position:fixed;
-
      bottom:20px;
-
      right:20px;
-
      z-index:9999;
-
      width: 280px;
-
      padding:15px;
-
      background-color:#f8dfe7;
-
      border-radius:15px;
-
      box-shadow:0 4px 15px rgba(0,0,0,0.2);
-
      display: flex;
-
      flex-direction: column;
-
      gap: 10px;
-
    ">
 
-
-
   <button onclick="preparePrint()" style="cursor:pointer; padding:5px; border-radius:5px; border:1px solid #ccc; background:#fff;">
-
     🖨️ 印刷用レイアウト
-
   </button>
 
-
-
   <div id="score" style="background: rgba(255,255,255,0.5); border-radius:10px;">
-
     </div>
-
-
 
   <a href="https://us02web.zoom.us/j/87873508375?pwd=NEw2Wmd1eVR3d2tMYmNnRFQvcDVTQT09" target="_blank" style="text-decoration:none; color:inherit;">
-
     <div style="
-
         padding:10px;
-
         background-color:rgba(255,255,255,0.8);
-
         border-radius:8px;
-
         font-size: 0.85rem;
-
         font-weight:bold;
-
         transition: 0.2s;
-
       " onmouseover="this.style.backgroundColor='#fff'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.8)'">
-
       ▶ 毎週月曜 PM 6:00-7:00<br>
-
       ZOOM 勉強会開催中!<br>
-
       <span style="font-size: 0.75rem; color: #666;">ID: 878 7350 8375 / パス: 朝の英語</span>
-
     </div>
-
   </a>
-
 </div>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

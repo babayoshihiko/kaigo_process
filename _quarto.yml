@@ -28,10 +28,10 @@ website:
             text: "小規模多機能型居宅介護"
           - href: kaigo_process_203_ICF.qmd
             text: "ICF"
-          - href: test.qmd
-            text: "日常生活動作 (ADL)"
-          - href: test.qmd
+          - href: kaigo_process_204_assessment.qmd
             text: "アセスメント"
+          - href: test.qmd
+            text: "情報収集（アセスメント）"
           - href: test.qmd
             text: "統合化（アセスメント）"
           - href: test.qmd
