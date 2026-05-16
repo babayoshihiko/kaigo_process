@@ -12,10 +12,9 @@ title: "テスト"
 <div id="quiz"></div>
 
 <script>
-
 (async () => {
   // ★最新のGAS URL（/exec）に差し替えてください
-  const gasUrl = "https://script.google.com/macros/s/AKfycbxCZQdHChtUbDvJ1XVJKMkWql1GhNS_QLjLAOY-BRp7oV8aFwSl7i0yzrNbh76tZlSvtw/exec";
+  const gasUrl = "https://script.google.com/macros/s/AKfycbw35-baYDgt2lpqZV4x2IwZU3JtyD6515pSNLjYRNG3GumhS2zNna4ikdep5YA4WElF/exec";
   const ADMIN_SHEET_ID = "1RnQ8aRHT8uLhBY82Veq9WdVl_GOsZRYFXrkEI_11mls";
 
   const schoolSelect = document.getElementById("schoolSelect");
@@ -49,7 +48,6 @@ title: "テスト"
     const selectedId = kakomonSelect.value;
     const selectedName = kakomonSelect.options[kakomonSelect.selectedIndex].text;
 
-    // Adminシートから、対象の「過去問シート名」「ルビシート名」「カテゴリ設定シート名」を特定
     const row = masterData.find(d => 
       (d.Kakomon_ID || "").toString().trim() === selectedId && 
       (d.Kakomon_name || "").toString().trim() === selectedName
@@ -59,9 +57,8 @@ title: "テスト"
 
     const qSheet = (row.Kakomon_sheet || "").toString().trim();
     const rSheet = (row.Ruby_sheet || "").toString().trim();
-    const cSheet = (row.Category_sheet || "").toString().trim(); // これが quizConfig 用のシート
+    const cSheet = (row.Category_sheet || "").toString().trim();
 
-    // GASへ、必要な全てのシート情報を投げる
     const quizUrl = `${gasUrl}?mode=quiz&id=${selectedId}&sheetName=${encodeURIComponent(qSheet)}&rubySheetName=${encodeURIComponent(rSheet)}&configSheetName=${encodeURIComponent(cSheet)}`;
 
     try {
@@ -79,14 +76,23 @@ title: "テスト"
       }
 
       // 【最重要】quizConfig の作成
-      // GAS側で Category_sheet の「category列」と「num列」をオブジェクトにして返している前提
       window.quizConfig = data.quizConfig || {}; 
-
-      // 確認用（開発者ツールのコンソールで構造が見れます）
       console.log("Loaded Config:", window.quizConfig);
 
-      // 【重要】クイズデータの格納
-      window.currentQuizData = data.quizData || [];
+      // ========================================================
+      // 💡【ここが最大の修正!!】
+      // GASから届いた生データを、JavaScript側の「仕分け関数」に通して
+      // 正しい『corrects』『wrongs』の配列構造に変換します。
+      // ========================================================
+      const rawData = data.quizData || [];
+      if (typeof convertToQuizData === "function") {
+        // 別ファイルの仕分け関数を実行
+        window.currentQuizData = convertToQuizData(rawData);
+      } else {
+        // 万が一関数が見つからない場合のフォールバックガード
+        window.currentQuizData = rawData;
+      }
+      // ========================================================
 
       // 描画実行
       if (typeof renderQuiz === "function") {
@@ -97,6 +103,5 @@ title: "テスト"
     }
   };
 })();
-
 </script>
 

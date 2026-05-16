@@ -4,75 +4,70 @@ let answeredCount = 0;
 let currentQuizData = []; 
 
 /* =========================
-    読み込み・データ処理系
+    データ処理系
 ========================= */
 
-// データ変換：CSV用
+// 生の配列データ（CSVなど）から、正解・誤答を安全に配列化する関数
 function convertToQuizData(csvData) {
+  if (!Array.isArray(csvData)) return [];
   return csvData.map(row => {
-    const findKey = (name) => Object.keys(row).find(k => k.trim().toLowerCase() === name);
-    const getVal = (name) => {
-      const key = findKey(name);
-      return key ? row[key].toString().trim() : "";
+    if (!row) return null;
+    
+    // 大文字小文字・スペースを無視して値を取り出すヘルパー
+    const getSafeVal = (names) => {
+      for (let name of names) {
+        const matchKey = Object.keys(row).find(k => k.trim().toLowerCase() === name.toLowerCase());
+        if (matchKey && row[matchKey] !== undefined && row[matchKey] !== null) {
+          return row[matchKey].toString().trim();
+        }
+      }
+      return "";
     };
 
-    const question = getVal("question");
+    const question = getSafeVal(["question"]);
     if (!question || question.toLowerCase() === "question") return null;
 
-    const corrects = [
-      getVal("correct"), getVal("correct1"), getVal("correct2"), getVal("correct3")
-    ].filter(Boolean);
+    // 正解を集約 (correct, correct1 〜 correct5)
+    let corrects = [];
+    const mainCorrect = getSafeVal(["correct"]);
+    if (mainCorrect) corrects.push(mainCorrect);
+    for (let i = 1; i <= 5; i++) {
+      const c = getSafeVal([`correct${i}`]);
+      if (c) corrects.push(c);
+    }
+    corrects = [...new Set(corrects)].filter(Boolean);
 
-    const allWrongs = [
-      getVal("wrong1"), getVal("wrong2"), getVal("wrong3"), getVal("wrong4"), getVal("wrong5")
-    ].filter(Boolean);
-
-    const neededWrongCount = 5 - corrects.length;
-    const selectedWrongs = shuffle([...allWrongs]).slice(0, Math.max(0, neededWrongCount));
+    // 不正解を集約 (wrong, wrong1 〜 wrong10)
+    let wrongs = [];
+    const mainWrong = getSafeVal(["wrong"]);
+    if (mainWrong) wrongs.push(mainWrong);
+    for (let i = 1; i <= 10; i++) {
+      const w = getSafeVal([`wrong${i}`]);
+      if (w) wrongs.push(w);
+    }
+    wrongs = [...new Set(wrongs)].filter(Boolean);
 
     return {
-      category: getVal("category"),
+      category: getSafeVal(["category"]) || "未分類",
       question: question,
       corrects: corrects,
-      wrongs: selectedWrongs,
-      explanation: getVal("explanation") || "解説はありません。"
+      wrongs: wrongs, 
+      explanation: getSafeVal(["explanation"]) || "解説はありません。"
     };
   }).filter(Boolean);
 }
 
-// 統合読み込み関数
+// 外部ファイル（CSV/JSON）読み込み関数
 async function loadData(url) {
   const separator = url.includes('?') ? '&' : '?';
   const fullUrl = `${url}${separator}v=${new Date().getTime()}`;
 
   const res = await fetch(fullUrl);
   if (!res.ok) throw new Error("ファイルの取得に失敗しました");
-  
-  // ★重要：外部CSVではなく、GASからルビが届く場合は loadDictionary は不要ですが、
-  // 念のため CSV 読み込みを残す場合はここに記述。
-  // 今回は index.html 側で setDictionary するのでここはスキップ可。
 
   if (url.toLowerCase().endsWith(".json")) {
     const jsonData = await res.json();
-    return jsonData.map(q => {
-      const question = q.question || "";
-      const explanation = q.explanation || "解説なし";
-      const rawCorrects = q.corrects ? (Array.isArray(q.corrects) ? q.corrects : [q.corrects]) : [q.correct || ""];
-      const corrects = rawCorrects.filter(Boolean).map(c => c);
-      const rawWrongs = q.wrongs || [];
-      const wrongs = rawWrongs.filter(Boolean).map(w => w);
-
-      const neededW = 5 - corrects.length;
-      const shuffledWrongs = shuffle([...wrongs]).slice(0, Math.max(0, neededW));
-
-      return {
-        ...q,
-        question: question,
-        corrects: corrects,
-        wrongs: shuffledWrongs,
-        explanation: explanation
-      };
-    });
+    return convertToQuizData(jsonData);
   } 
   
   const text = await res.text();
@@ -125,9 +120,8 @@ function checkAnswerMulti(quizIndex, explanation) {
     if (btn.classList.contains("selected") && btn.dataset.correct === "false") btn.classList.add("reveal-wrong");
   });
 
-  updateScoreDisplay();
+  if (typeof updateScoreDisplay === "function") updateScoreDisplay();
 
-  // ★ 解説文のルビ適用
   let html = marked.parse(explanation || "（解説なし）");
   if (typeof rubyConverter !== "undefined" && typeof rubyConverter.convert === "function") {
       html = rubyConverter.convert(html);
@@ -142,43 +136,94 @@ function checkAnswerMulti(quizIndex, explanation) {
 ========================= */
 
 function renderQuiz(quizData, containerId = "quiz") {
-  console.log("renderQuiz start");
-  console.log(window.currentQuizData);
-  console.log(window.quizConfig);
-  
   const container = document.getElementById(containerId);
-  if (!container) return;
-  container.innerHTML = "";
+  if (!container) {
+    console.error("器（container）が見つかりません:", containerId);
+    return;
+  }
+  container.innerHTML = "読み込み中..."; // ← 実行されているか確認するための目印
 
-  let displayData = [...quizData];
+  // 💡【ここが重要】データの入れ子構造を徹底的にバラす
+  let raw = quizData;
+  if (quizData && quizData.quizData) raw = quizData.quizData; // 階層が深い場合
+  if (!Array.isArray(raw)) {
+    console.warn("データが配列ではありません:", raw);
+    container.innerHTML = "データの形式が正しくありません。";
+    return;
+  }
 
-  // 絞り込み処理
+  if (raw.length === 0) {
+    container.innerHTML = "表示できる問題が0件です。";
+    return;
+  }
+
+  // 以降の map 処理などは、この 'raw' に対して行う
+  let displayData = raw.map(q => {
+    // すでに成形済みのデータ構造ならそのまま返す
+    if (Array.isArray(q.corrects) && Array.isArray(q.wrongs)) {
+      return q;
+    }
+
+    // 生データから直接プロパティを探す（大文字小文字両対応）
+    const getVal = (names) => {
+      for (let n of names) {
+        if (q[n] !== undefined && q[n] !== null) return q[n].toString().trim();
+        // 小文字変換して探す
+        const foundKey = Object.keys(q).find(k => k.toLowerCase() === n.toLowerCase());
+        if (foundKey && q[foundKey] !== undefined && q[foundKey] !== null) return q[foundKey].toString().trim();
+      }
+      return "";
+    };
+
+    const question = getVal(["question", "Question"]);
+    if (!question) return null; // 問題文が本当になければスキップ
+
+    let corrects = [];
+    const cMain = getVal(["correct", "Correct"]);
+    if (cMain) corrects.push(cMain);
+    for (let i = 1; i <= 5; i++) {
+      const c = getVal([`correct${i}`, `Correct${i}`]);
+      if (c) corrects.push(c);
+    }
+    corrects = [...new Set(corrects)].filter(Boolean);
+
+    let wrongs = [];
+    const wMain = getVal(["wrong", "Wrong"]);
+    if (wMain) wrongs.push(wMain);
+    for (let i = 1; i <= 10; i++) {
+      const w = getVal([`wrong${i}`, `Wrong${i}`]);
+      if (w) wrongs.push(w);
+    }
+    wrongs = [...new Set(wrongs)].filter(Boolean);
+
+    return {
+      category: getVal(["category", "Category"]) || "未分類",
+      question: question,
+      corrects: corrects,
+      wrongs: wrongs,
+      explanation: getVal(["explanation", "Explanation"]) || "解説はありません。"
+    };
+  }).filter(Boolean); // 確実に有効なデータだけにする
+
+  // configによる問題数制限（設定されている場合のみ）
   if (window.quizConfig && Object.keys(window.quizConfig).length > 0) {
-    const groups = displayData.reduce((acc, obj) => {
-      const key = (obj.category || obj.Category || "未分類").toString().trim();
-      if (!acc[key]) acc[key] = [];
-      acc[key].push(obj);
-      return acc;
-    }, {});
+    const hasValidConfig = Object.values(window.quizConfig).some(val => parseInt(val, 10) > 0);
+    if (hasValidConfig) {
+      const groups = displayData.reduce((acc, obj) => {
+        const key = obj.category;
+        if (!acc[key]) acc[key] = [];
+        acc[key].push(obj);
+        return acc;
+      }, {});
 
-    displayData = Object.keys(groups).flatMap(catName => {
-    
-      const configKey = Object.keys(window.quizConfig)
-        .find(k => k.trim() === catName);
-    
-      // config に存在しないカテゴリは出題しない
-      if (!configKey) return [];
-    
-      const limit = parseInt(window.quizConfig[configKey], 10);
-    
-      // 0以下や不正値も出題しない
-      if (isNaN(limit) || limit <= 0) return [];
-    
-      const group = shuffle([...groups[catName]])
-        .slice(0, limit);
-    
-      return group;
-    });
+      displayData = Object.keys(groups).flatMap(catName => {
+        const configKey = Object.keys(window.quizConfig).find(k => k.trim() === catName);
+        if (!configKey) return groups[catName];
+        const limit = parseInt(window.quizConfig[configKey], 10);
+        if (isNaN(limit) || limit <= 0) return groups[catName];
+        return shuffle([...groups[catName]]).slice(0, limit);
+      });
+    }
   }
 
   currentQuizData = displayData; 
@@ -196,22 +241,21 @@ function renderQuiz(quizData, containerId = "quiz") {
     const div = document.createElement("div");
     div.classList.add("quiz-item");
 
+    // N択数の決定 (HTML側の window.kakomonNChoice、指定がなければ5)
     const nChoice = window.kakomonNChoice || 5;
+    const actualCorrects = q.corrects || [];
+    const actualWrongs = q.wrongs || [];
     
-    // 誤答をシャッフルして必要数だけ取る
-    const selectedWrongs = shuffle([...q.wrongs])
-      .slice(0, Math.max(0, nChoice - 1));
+    // 必要な誤答の数
+    const neededW = nChoice - actualCorrects.length;
+    const selectedWrongs = shuffle([...actualWrongs]).slice(0, Math.max(0, neededW));
     
     const allChoices = [
-      { text: q.correct, isCorrect: true },
-      ...selectedWrongs.map(w => ({
-        text: w,
-        isCorrect: false
-      }))
+      ...actualCorrects.map(c => ({ text: c, isCorrect: true })),
+      ...selectedWrongs.map(w => ({ text: w, isCorrect: false }))
     ];
+    
     const shuffled = shuffle([...allChoices]);
-
-    // ★ 問題文と選択肢のルビ適用
     const qText = (typeof rubyConverter !== "undefined") ? rubyConverter.convert(mdInline(q.question)) : mdInline(q.question);
     
     let html = `<p><strong>Q${index + 1}. ${qText}</strong></p>`;
@@ -237,6 +281,7 @@ function renderQuiz(quizData, containerId = "quiz") {
 }
 
 function shuffle(array) {
+  if (!Array.isArray(array)) return [];
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -264,7 +309,7 @@ function updateScoreDisplay() {
     high: ["この調子！", "完璧に近い！"]
   };
 
-  let comment = (answeredCount === 0) ? getRandom(comments.start) : (rate < 60 ? getRandom(comments.low) : getRandom(comments.high));
+  let comment = (answeredCount === 0) ? comments.start[Math.floor(Math.random() * comments.start.length)] : (rate < 60 ? comments.low[Math.floor(Math.random() * comments.low.length)] : comments.high[Math.floor(Math.random() * comments.high.length)]);
 
   scoreDiv.innerHTML = `
     <div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #fdfdfd; border-radius: 10px; border: 1px solid #eee; max-width: fit-content; margin-bottom: 20px;">
@@ -277,11 +322,9 @@ function updateScoreDisplay() {
   `;
 }
 
-function getRandom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-// 印刷関連はそのまま維持
+/* =========================
+    印刷関連
+========================= */
 function preparePrint() {
   if (!currentQuizData || currentQuizData.length === 0) {
     alert("データがありません。");
@@ -292,20 +335,46 @@ function preparePrint() {
 
 function renderQuizForPrint(quizData) {
   const container = document.getElementById("quiz");
-  container.innerHTML = `<h2 style="text-align:center;">確認テスト</h2><p style="text-align:right;">氏名：__________________________</p>`;
+  if (!container) return;
+
+  container.innerHTML = `
+    <h2 style="text-align:center; margin-bottom: 2rem;">確認テスト</h2>
+    <p style="text-align:right; margin-bottom: 2rem;">氏名：__________________________</p>
+  `;
+
+  const nChoice = window.kakomonNChoice || 5;
+
   quizData.forEach((q, index) => {
     const div = document.createElement("div");
     div.style.marginBottom = "2rem";
-    const choices = shuffle([...q.corrects, ...q.wrongs]);
-    div.innerHTML = `<p><strong>問${index + 1}. ${mdInline(q.question)}</strong></p>` + 
-      choices.map((c, i) => `<div style="margin-left:20px;">（ ${i+1} ） ${mdInline(c)}</div>`).join('');
+    div.style.pageBreakInside = "avoid"; 
+    div.style.breakInside = "avoid";     
+
+    const actualCorrects = q.corrects || [];
+    const actualWrongs = q.wrongs || [];
+
+    const neededW = nChoice - actualCorrects.length;
+    const selectedWrongs = shuffle([...actualWrongs]).slice(0, Math.max(0, neededW));
+
+    const choices = [
+      ...actualCorrects,       
+      ...selectedWrongs    
+    ];
+
+    const qText = (typeof rubyConverter !== "undefined") ? rubyConverter.convert(mdInline(q.question)) : mdInline(q.question);
+    let html = `<p><strong>問${index + 1}. ${qText}</strong></p>`;
+    
+    choices.forEach((c, i) => {
+      const cText = (typeof rubyConverter !== "undefined") ? rubyConverter.convert(mdInline(c)) : mdInline(c);
+      html += `<div style="margin-left: 20px; margin-bottom: 0.5rem;">（ ${i + 1} ） ${cText}</div>`;
+    });
+
+    div.innerHTML = html;
     container.appendChild(div);
   });
-  setTimeout(() => { window.print(); location.reload(); }, 500);
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (window.quizCSV || window.quizJSON) {
-    // initQuizなどの初期化が必要な場合はここに記述
-  }
-});
+  setTimeout(() => { 
+    window.print(); 
+    location.reload(); 
+  }, 500);
+}

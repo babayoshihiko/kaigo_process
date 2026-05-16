@@ -7,7 +7,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>介護過程 - 認知症グループホーム</title>
+<title>
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>介護<rt>かいご</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>過程<rt>かてい</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+ - 
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>介護<rt>かいご</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+課程</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +94,19 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">介護過程</span>
+    <span class="navbar-title">
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>介護<rt>かいご</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>過程<rt>かてい</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -85,41 +115,101 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html">
+    <a class="nav-link active" href="./index.html" aria-current="page">
  <span class="menu-text">はじめに</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ii" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">介護課程II</span>
+ <span class="menu-text">
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>介護<rt>かいご</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+課程II</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-ii">    
         <li>
-    <a class="dropdown-item" href="./kaigo_process_201_GH_ruby.html">
- <span class="dropdown-text">認知症グループホーム</span></a>
+    <a class="dropdown-item" href="./kaigo_process_201_GH.html">
+ <span class="dropdown-text">
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>認知症<rt>にんちしょう</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+グループホーム</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./kaigo_process_202_SM_ruby.html">
- <span class="dropdown-text">小規模多機能型居宅介護</span></a>
+    <a class="dropdown-item" href="./kaigo_process_202_SM.html">
+ <span class="dropdown-text">
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>小規模<rt>しょうきぼ</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>多機能型<rt>たきのうがた</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+居宅
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>介護<rt>かいご</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./kaigo_process_203_ICF_ruby.html">
+    <a class="dropdown-item" href="./kaigo_process_203_ICF.html">
  <span class="dropdown-text">ICF</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./kaigo_process_204_assessment_ruby.html">
+    <a class="dropdown-item" href="./kaigo_process_204_assessment.html">
  <span class="dropdown-text">アセスメント</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./kaigo_process_205_info_ruby.html">
- <span class="dropdown-text">情報収集（アセスメント）</span></a>
+    <a class="dropdown-item" href="./kaigo_process_205_info.html">
+ <span class="dropdown-text">
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>情報<rt>じょうほう</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>収集<rt>しゅうしゅう</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+（アセスメント）</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./test.html">
- <span class="dropdown-text">統合化（アセスメント）</span></a>
+ <span class="dropdown-text">
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>統合化<rt>とうごうか</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+（アセスメント）</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./test.html">
- <span class="dropdown-text">生活課題（アセスメント）</span></a>
+ <span class="dropdown-text">
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>生活<rt>せいかつ</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>課題<rt>かだい</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+（アセスメント）</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./test.html">
@@ -142,21 +232,20 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#認知症高齢者の日常生活自立度" id="toc-認知症高齢者の日常生活自立度" class="nav-link active" data-scroll-target="#認知症高齢者の日常生活自立度">認知症高齢者の日常生活自立度</a></li>
-  <li><a href="#確認テスト" id="toc-確認テスト" class="nav-link" data-scroll-target="#確認テスト">確認テスト</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">認知症グループホーム</h1>
+<h1 class="title">
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>介護<rt>かいご</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+課程</h1>
 </div>
 
 
@@ -171,30 +260,22 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>認知症グループホーム（認知症対応型共同生活介護）は、認知症と診断された高齢者が、専門スタッフの支援を受けながら、5〜9人の少人数ユニットで家庭的な雰囲気の中で共同生活を送る介護施設です。食事の準備や掃除をスタッフと共に行い、自立支援と認知症の進行緩和を目指します。</p>
-<p>認知症グループホームという名称は俗称です。介護保険法では、認知症対応型共同生活介護という名称になります。</p>
-<p>入居対象者: 原則 65 歳以上で、要支援 2 または要介護 1 以上の認定を受けており、医師から認知症の診断を受けた方です。要支援 2 以上である理由としては、認知症高齢者の日常生活自立度が「II（日常生活に支障をきたすような症状・行動や意思疎通の困難さが多少見られ、介護が必要）」であれば、要支援 2 以上となるためです。</p>
-<p>生活環境: 5〜9人の少人数ユニット制で、家庭に近い落ち着いた環境で生活します。</p>
-<p>地域密着型: 認知症グループホームがある市町村に住民票がある方に限定されることが原則です。市町村に認められれば、他の市町村に住んでいても入居できることがあります。</p>
-<p>介護体制:専門の介護スタッフが常駐し、24時間体制で日常生活上の介護や機能訓練を提供します。</p>
-<section id="認知症高齢者の日常生活自立度" class="level2">
-<h2 class="anchored" data-anchor-id="認知症高齢者の日常生活自立度">認知症高齢者の日常生活自立度</h2>
-<p>認知症高齢者の日常生活自立度が「II（日常生活に支障をきたすような症状・行動や意思疎通の困難さが多少見られ、介護が必要）」であれば、要支援 2 以上となります。</p>
-</section>
-<section id="確認テスト" class="level2">
-<h2 class="anchored" data-anchor-id="確認テスト">確認テスト</h2>
-<div id="quiz">
-
-</div>
-<script>
-  window.schoolName = "介護過程";
-  window.kakomonName = "認知症グループホーム";
-  window.kakomonNChoice = 3;
-</script>
-<script src="load_gsheet_direct.js"></script>
+<p><ruby>大学<rt>だいがく</rt></ruby>の<ruby>
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>介護<rt>かいご</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+課程I<rt>かいごかていいち</rt></ruby>から<ruby>
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>介護<rt>かいご</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+課程V<rt>かいごかていご</rt></ruby>までの<ruby>講義資料<rt>こうぎしりょう</rt></ruby>です。</p>
+<p><ruby>他大学<rt>ただいがく</rt></ruby>・<ruby>専門学校<rt>せんもんがっこう</rt></ruby>の方も、ご<ruby>自由<rt>じゆう</rt></ruby>にお<ruby>使<rt>つか</rt></ruby>いください。</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <div id="popup-container" class="no-print" style="
@@ -370,7 +451,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">©2026 新潟医療福祉大学 社会福祉学科</div>   
+    <div class="nav-footer-left">©2026 新潟医療
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>福祉<rt>ふくし</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+大学 
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>社会<rt>しゃかい</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+
+    if () {
+        ; # <script>内ならそのままスルー
+    } else {
+        <ruby>福祉<rt>ふくし</rt></ruby>; # マッチした長い方の単語で一発置換
+    }
+学科</div>   
     <div class="nav-footer-right">AI 准教授 馬場 監修</div>
   </div>
 </footer>

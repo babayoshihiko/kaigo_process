@@ -22,15 +22,15 @@ website:
         text: はじめに
       - text: "介護課程II"
         menu:
-          - href: kaigo_process_201_GH.qmd
+          - href: kaigo_process_201_GH_ruby.qmd
             text: "認知症グループホーム"
-          - href: kaigo_process_202_SM.qmd
+          - href: kaigo_process_202_SM_ruby.qmd
             text: "小規模多機能型居宅介護"
-          - href: kaigo_process_203_ICF.qmd
+          - href: kaigo_process_203_ICF_ruby.qmd
             text: "ICF"
-          - href: kaigo_process_204_assessment.qmd
+          - href: kaigo_process_204_assessment_ruby.qmd
             text: "アセスメント"
-          - href: kaigo_process_205_info.qmd
+          - href: kaigo_process_205_info_ruby.qmd
             text: "情報収集（アセスメント）"
           - href: test.qmd
             text: "統合化（アセスメント）"

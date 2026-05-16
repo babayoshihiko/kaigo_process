@@ -1,86 +1,80 @@
-(async () => {
-  // ★最新のGAS URL（/exec）に差し替えてください
-  const gasUrl = "https://script.google.com/macros/s/AKfycbxCZQdHChtUbDvJ1XVJKMkWql1GhNS_QLjLAOY-BRp7oV8aFwSl7i0yzrNbh76tZlSvtw/exec";
+window.addEventListener("DOMContentLoaded", async () => {
+
+  // GASのURLとAdminシートID
+  const gasUrl = "https://script.google.com/macros/s/AKfycbw35-baYDgt2lpqZV4x2IwZU3JtyD6515pSNLjYRNG3GumhS2zNna4ikdep5YA4WElF/exec";
   const ADMIN_SHEET_ID = "1RnQ8aRHT8uLhBY82Veq9WdVl_GOsZRYFXrkEI_11mls";
 
-  const schoolSelect = document.getElementById("schoolSelect");
-  const kakomonSelect = document.getElementById("kakomonSelect");
-  const goBtn = document.getElementById("goBtn");
+  // HTML側で指定された変数（介護過程 / アセスメント 等）を取得
+  const schoolName = window.schoolName;
+  const kakomonName = window.kakomonName;
 
-  let masterData = [];
-
-  // --- 1. Adminシートの読み込み ---
-  try {
-    const response = await fetch(`${gasUrl}?mode=admin&id=${ADMIN_SHEET_ID}`);
-    masterData = await response.json();
-
-    const schoolList = [...new Set(masterData.map(d => (d.School_name || "").toString().trim()))].filter(Boolean);
-    schoolSelect.innerHTML = schoolList.map(s => `<option value="${s}">${s}</option>`).join("");
-
-    const updateKakomonList = () => {
-      const selectedSchool = schoolSelect.value;
-      const filtered = masterData.filter(d => (d.School_name || "").toString().trim() === selectedSchool);
-      kakomonSelect.innerHTML = filtered.map(d => `<option value="${d.Kakomon_ID}">${d.Kakomon_name}</option>`).join("");
-    };
-
-    schoolSelect.addEventListener("change", updateKakomonList);
-    updateKakomonList();
-  } catch (e) {
-    console.error("初期データ取得失敗:", e);
+  if (!schoolName || !kakomonName) {
+    console.error("schoolName または kakomonName が未設定です。");
+    return;
   }
 
-  // --- 2. Goボタン押下時の処理 ---
-  goBtn.onclick = async () => {
-    const selectedId = kakomonSelect.value;
-    const selectedName = kakomonSelect.options[kakomonSelect.selectedIndex].text;
+  try {
+    // 1. Adminシートから、対象の過去問がどのシートにあるかを探す
+    const adminRes = await fetch(`${gasUrl}?mode=admin&id=${ADMIN_SHEET_ID}`);
+    const masterData = await adminRes.json();
 
-    // Adminシートから、対象の「過去問シート名」「ルビシート名」「カテゴリ設定シート名」を特定
-    const row = masterData.find(d => 
-      (d.Kakomon_ID || "").toString().trim() === selectedId && 
-      (d.Kakomon_name || "").toString().trim() === selectedName
+    // masterDataが配列でない場合のセーフティガード
+    const dataList = Array.isArray(masterData) ? masterData : (masterData ? [masterData] : []);
+
+    // HTMLの指定と一致する行を特定
+    const row = dataList.find(d =>
+      (d.School_name || "").toString().trim() === schoolName &&
+      (d.Kakomon_name || "").toString().trim() === kakomonName
     );
 
-    if (!row) return;
+    if (!row) {
+      console.error(`Adminシート内に一致するデータが見つかりません: ${schoolName} / ${kakomonName}`);
+      return;
+    }
 
+    // 2. 必要な情報を抽出
+    const selectedId = (row.Kakomon_ID || "").toString().trim();
     const qSheet = (row.Kakomon_sheet || "").toString().trim();
     const rSheet = (row.Ruby_sheet || "").toString().trim();
-    const cSheet = (row.Category_sheet || "").toString().trim(); // これが quizConfig 用のシート
+    const cSheet = (row.Category_sheet || "").toString().trim();
 
-    // GASへ、必要な全てのシート情報を投げる
-    const quizUrl = `${gasUrl}?mode=quiz&id=${selectedId}&sheetName=${encodeURIComponent(qSheet)}&rubySheetName=${encodeURIComponent(rSheet)}&configSheetName=${encodeURIComponent(cSheet)}`;
+    // 3. クイズ本番データの取得URLを構築
+    const quizUrl =
+      `${gasUrl}?mode=quiz` +
+      `&id=${selectedId}` +
+      `&sheetName=${encodeURIComponent(qSheet)}` +
+      `&rubySheetName=${encodeURIComponent(rSheet)}` +
+      `&configSheetName=${encodeURIComponent(cSheet)}`;
 
-    try {
-      const res = await fetch(quizUrl);
-      const data = await res.json();
+    const quizRes = await fetch(quizUrl);
+    const data = await quizRes.json();
 
-      if (data.error) {
-        console.error("GASエラー:", data.error);
-        return;
-      }
-
-      // 【重要】Ruby辞書の適用
-      if (data.ruby && typeof rubyConverter !== "undefined") {
-        rubyConverter.setDictionary(data.ruby);
-      }
-
-      // 【最重要】quizConfig の作成
-      // GAS側で Category_sheet の「category列」と「num列」をオブジェクトにして返している前提
-      window.quizConfig = data.quizConfig || {}; 
-
-      // 確認用（開発者ツールのコンソールで構造が見れます）
-      console.log("Loaded Config:", window.quizConfig);
-
-      // 【重要】クイズデータの格納
-      window.currentQuizData = data.quizData || [];
-
-      // 描画実行
-      if (typeof renderQuiz === "function") {
-        renderQuiz(window.currentQuizData);
-      }
-    } catch (err) {
-      console.error("通信エラー:", err);
+    if (data.error) {
+      console.error("GASエラー:", data.error);
+      return;
     }
-  };
-})();
 
+    // Ruby辞書の設定（もしあれば）
+    if (data.ruby && typeof rubyConverter !== "undefined") {
+      rubyConverter.setDictionary(data.ruby);
+    }
 
+    // カテゴリ出題数設定（もしあれば）
+    window.quizConfig = data.quizConfig || {};
+
+    // クイズデータをグローバル変数に格納
+    // ※ 共通JS側の renderQuiz 内で「正解・誤答の配列化」を行うので、ここでは生のまま渡してOK
+    window.currentQuizData = data.quizData || [];
+
+    // 4. 共通JSの描画関数を呼び出す
+    if (typeof renderQuiz === "function") {
+      // 第一引数にデータ、第二引数にHTMLのID "quiz" を渡す
+      renderQuiz(window.currentQuizData, "quiz");
+    } else {
+      console.error("renderQuiz 関数が見つかりません。共通JSが読み込まれているか確認してください。");
+    }
+
+  } catch (err) {
+    console.error("通信エラーが発生しました:", err);
+  }
+});
