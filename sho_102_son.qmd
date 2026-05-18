@@ -1,0 +1,24 @@
+---
+title: "尊厳の保持と自立支援"
+format:
+  html:
+    css: styles.css
+---
+
+## 人権と尊厳の保持
+
+
+## 自立支援
+
+
+
+## 確認テスト
+
+<div id="quiz"></div>
+
+<!-- script>
+  window.schoolName = "初任者研修";
+  window.kakomonName = "初任者研修";
+  window.kakomonNChoice = 2;
+</script>
+<script src="load_gsheet_direct.js"></script -->

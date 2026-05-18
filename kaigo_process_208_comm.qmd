@@ -1,0 +1,19 @@
+---
+title: "地域密着型サービス"
+format:
+  html:
+    css: styles.css
+---
+
+## 地域密着型サービス
+
+
+
+<div id="quiz"></div>
+
+<script>
+  window.schoolName = "介護過程";
+  window.kakomonName = "地域密着";
+  window.kakomonNChoice = 3;
+</script>
+<script src="load_gsheet_direct.js"></script>

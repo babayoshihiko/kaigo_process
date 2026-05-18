@@ -1,0 +1,21 @@
+---
+title: "生活課題"
+format:
+  html:
+    css: styles.css
+---
+
+## 生活課題
+
+
+
+## 確認テスト
+
+<div id="quiz"></div>
+
+<script>
+  window.schoolName = "介護過程";
+  window.kakomonName = "生活課題";
+  window.kakomonNChoice = 3;
+</script>
+<script src="load_gsheet_direct.js"></script>
